@@ -1,0 +1,12 @@
+train_BraTS20_Validation_007.npy
+train_BraTS20_Validation_069.npy
+train_BraTS20_Validation_062.npy
+train_BraTS20_Validation_052.npy
+train_BraTS20_Validation_106.npy
+train_BraTS20_Validation_037.npy
+train_BraTS20_Validation_032.npy
+train_BraTS20_Validation_046.npy
+train_BraTS20_Validation_001.npy
+train_BraTS20_Validation_066.npy
+train_BraTS20_Validation_091.npy
+train_BraTS20_Validation_095.npy

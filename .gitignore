@@ -1,0 +1,13 @@
+# Exclude specific files
+run.md
+train_npz_new_224.zip
+brats20-dataset-training-validation.zip
+
+# Exclude directories
+BraTS_output/
+output/
+testset/
+trainset/
+__pycache__/
+checkpoints/
+BraTS20/
