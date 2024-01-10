@@ -4,6 +4,7 @@ below is an example for BraTS 2020 (see README in this directory for more)"""
 import os
 import numpy as np
 import nibabel as nib
+import argparse
 
 def load_nifti_data(file_path):
     return nib.load(file_path).get_fdata()
