@@ -38,14 +38,21 @@ After pre-processing, you need to mention the names of the train files in the li
 python create_lists.py --dataset_name your_dataset_name --folder_path /path/to/project_root --num_samples 10
 ```
 
-Once the dataset is set, its important to start training:
+Once the dataset is set, start the training:
 
 ```shell
 python3 train.py --root_path ./trainset --output ./BraTS_output --dataset BraTS --list_dir ./lists/lists_BRATS --max_epochs 2 --img_size 240  --warmup --AdamW 
 ```
+Make sure to add the correct relative paths to the datasets and lists.
 
 You can adjust the arguments, there are bunch of arguments there in `train.py` file of the root project directory.
 
 ## Running Inference
 
 Inferences can be easily run on Synapse multi organ dataset. But the inference requiring other datasets cannot be simply use the `test.py` because of different classes and modalities. 
+
+## To Do
+
+- [x] Make necessary modifications in the repo for custom dataset input
+- [x] Personalize the `utils` scripts 
+- [] Modify the `test.py` file for datasets other than synapse 
