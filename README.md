@@ -45,11 +45,11 @@ python3 train.py --root_path ./trainset --output ./BraTS_output --dataset BraTS 
 ```
 Make sure to add the correct relative paths to the datasets and lists.
 
-You can adjust the arguments, there are bunch of arguments there in `train.py` file of the root project directory.
+Train script arguments are present in `train.py` file. You should try your experiments changing the required arguments (hyperparams) for knowing the optimised hyperparams during training. A few of those include epochs, iterations, learning rate, batch size, number of classes, image size, LoRA rank, etc.
 
 ## Running Inference
 
-Inferences can be easily run on Synapse multi organ dataset. But the inference requiring other datasets cannot be simply use the `test.py` because of different classes and modalities. 
+Inferences can be easily run on Synapse multi organ dataset. But the inference requiring other datasets cannot simply use the `test.py` because of different classes and modalities. 
 
 ## To Do
 
