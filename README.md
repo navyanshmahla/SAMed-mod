@@ -54,5 +54,5 @@ Inferences can be easily run on Synapse multi organ dataset. But the inference r
 ## To Do
 
 - [x] Make necessary modifications in the repo for custom dataset input
-- [x] Personalize the `utils` scripts 
+- [x] Personalize the scripts in the `./utils` folder
 - [ ] Modify the `test.py` file for datasets other than synapse 
