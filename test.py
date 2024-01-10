@@ -62,7 +62,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', type=str, default=None, help='The config file provided by the trained model')
     parser.add_argument('--volume_path', type=str, default='testset/test_vol_h5/')
-    parser.add_argument('--dataset', type=str, default='Synapse', help='Experiment name')
+    parser.add_argument('--dataset', type=str, default='Synapse', help='Dataset name')
     parser.add_argument('--num_classes', type=int, default=8)
     parser.add_argument('--list_dir', type=str, default='./lists/lists_Synapse/', help='list_dir')
     parser.add_argument('--output_dir', type=str, default='/output')
@@ -99,8 +99,8 @@ if __name__ == '__main__':
     torch.cuda.manual_seed(args.seed)
     dataset_name = args.dataset
     dataset_config = {
-        'Synapse': {
-            'Dataset': Synapse_dataset,
+        args.dataset: {
+            'Dataset': args.dataset,
             'volume_path': args.volume_path,
             'list_dir': args.list_dir,
             'num_classes': args.num_classes,
