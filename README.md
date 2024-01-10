@@ -44,7 +44,9 @@ python pre-process_train.py --main_folder /relative/path/to/raw/dataset --output
 After pre-processing, you need to mention the names of the train files in the lists from where they're sampled to train under few shot regimes. This similar list creation must be done for testing as well.
 
 ```shell
-python create_lists.py --dataset_name your_dataset_name --folder_path /path/to/project_root --num_samples 10
+python list_create.py --dataset_name YourDataset --folder_path /relative/path/to/root/directory --num_samples 10 --trainset_folder_path /relative/path/to/trainset/folder --testset_folder_path /relative/path/to/testset/folder
+
+
 ```
 
 Once the dataset is set, start the training:
