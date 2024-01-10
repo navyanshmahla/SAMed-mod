@@ -6,6 +6,15 @@ This repo is a small cross modification for training/fine-tuning SAMed for custo
 
 Details for implementation on Synapse multi-organ dataset can be found at the original repo. This repository aims to use BraTS 2020 dataset as dataset. 
 
+# Pre-requisites
+
+Running this repo requires:
+
+- Linux
+- Any conda based environment and package management tool (Anaconda or Miniconda)
+- Python 3.7.11
+- PyTorch 1.9.1
+
 ## Setting Up the Repo
 
 Get started by cloning the repository locally and setup the conda environment as follows:
