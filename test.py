@@ -100,7 +100,7 @@ if __name__ == '__main__':
     dataset_name = args.dataset
     dataset_config = {
         args.dataset: {
-            'Dataset': args.dataset,
+            'Dataset': Synapse_dataset,
             'volume_path': args.volume_path,
             'list_dir': args.list_dir,
             'num_classes': args.num_classes,
