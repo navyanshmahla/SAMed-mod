@@ -46,7 +46,7 @@ python pre-process_train.py --main_folder /relative/path/to/raw/dataset --output
 To pre-process the test dataset use the following command:
 
 ```shell
-python your_script.py --source_dir /relative/path/to/testdata --target_dir ../testset/test_vol_h5
+python pre_process_test.py --source_dir /relative/path/to/testdata --target_dir ../testset/test_vol_h5
 ```
 **IMP** Have a look at the pre-processing files to have a better idea of how its working. The pre-processing of the data is very specific to the dataset you plan on to use. 
 
