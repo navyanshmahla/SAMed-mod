@@ -86,4 +86,5 @@ python test.py --is_savenii --dataset BraTS --num_classes num_classes --list_dir
 
 - [x] Make necessary modifications in the repo for custom dataset input
 - [x] Personalize the scripts in the `./utils` folder
-- [ ] Modify the `test.py` file for datasets other than synapse 
+- [x] Modify the `test.py` file for datasets other than synapse 
+- [ ] Probably make a script to determine normalisation parameters in `./utils/pre_process_test.py` and `./utils/pre_process_train.py`

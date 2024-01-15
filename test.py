@@ -18,7 +18,7 @@ from icecream import ic
 
 # Modify the class_to_name according to your dataset
 #class_to_name = {1: 'spleen', 2: 'right kidney', 3: 'left kidney', 4: 'gallbladder', 5: 'liver', 6: 'stomach', 7: 'aorta', 8: 'pancreas'}
-class_to_name  = {1: 'NCR/NET', 2: 'ED', 4: 'ET'}
+class_to_name  = {1: 'NCR/NET', 2: 'ED', 4: 'ET'} # This is according to BraTS 2020
 
 def inference(args, multimask_output, db_config, model, test_save_path=None):
     db_test = db_config['Dataset'](base_dir=args.volume_path, list_dir=args.list_dir, split='test_vol')
