@@ -1,45 +1,53 @@
-"""This script is to pre-process the raw test dataset"""
-
 import os
-import argparse
-import SimpleITK as sitk
 import numpy as np
+import nibabel as nib
+import argparse
 import h5py
 
-def nifti_to_numpy(file_path):
-    img = sitk.ReadImage(file_path)
-    img_array = sitk.GetArrayFromImage(img)
-    return img_array
+def load_nifti_data(file_path):
+    return nib.load(file_path).get_fdata()
 
-def preprocess_data(source_dir, target_dir):
-    # Iterate through source subfolders
-    for subdir in os.listdir(source_dir):
-        subdir_path = os.path.join(source_dir, subdir)
-        if os.path.isdir(subdir_path):
-            t1_file = os.path.join(subdir_path, f'{subdir}_t1.nii')
-            seg_file = os.path.join(subdir_path, f'{subdir}_seg.nii')
+def normalize_data(data):
+    data = np.clip(data, -125, 275)
+    return (data - (-125)) / (275 - (-125))
 
-            # Check if both files exist
-            if os.path.exists(t1_file) and os.path.exists(seg_file):
-                # Convert NIfTI to NumPy arrays
-                t1_array = nifti_to_numpy(t1_file)
-                seg_array = nifti_to_numpy(seg_file)
+def transpose_data(data):
+    return np.transpose(data, (2, 1, 0))
 
-                # Create an HDF5 file and store NumPy arrays
-                target_file = os.path.join(target_dir, f'{subdir}.npy.h5')
-                with h5py.File(target_file, 'w') as hf:
-                    hf.create_dataset('image', data=t1_array)
-                    hf.create_dataset('label', data=seg_array)
+def process_subfolder(sub_folder, output_folder):
+    t1_file = os.path.join(sub_folder, f'{os.path.basename(sub_folder)}_t1.nii')
+    seg_file = os.path.join(sub_folder, f'{os.path.basename(sub_folder)}_seg.nii')
 
-        print(f"Done for file with dir: {subdir_path}")
+    if os.path.exists(t1_file) and os.path.exists(seg_file):
+        t1_data = load_nifti_data(t1_file)
+        seg_data = load_nifti_data(seg_file)
 
-    print("Done for all the files!")
+        t1_data = normalize_data(t1_data)
+        t1_data = transpose_data(t1_data)
+        seg_data = transpose_data(seg_data)
+
+        os.makedirs(output_folder, exist_ok=True)
+
+        output_path = os.path.join(output_folder, f'{os.path.basename(sub_folder)}.npy.h5')
+        with h5py.File(output_path, 'w') as h5file:
+            h5file.create_dataset('image', data=t1_data)
+            h5file.create_dataset('label', data=seg_data)
+
+def preprocess_dataset(main_folder, output_folder):
+    for subdir in os.listdir(main_folder):
+        sub_folder = os.path.join(main_folder, subdir)
+
+        if os.path.isdir(sub_folder):
+            process_subfolder(sub_folder, output_folder)
+            print(f"Done for the sub folder with path: {sub_folder}")
+
+    print(f"Pre-processing complete!")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Preprocess data for creating a testset.")
-    parser.add_argument("--source_dir", required=True, help="Source directory containing NIfTI files.")
-    parser.add_argument("--target_dir", required=True, help="Target directory to store processed data.")
+    parser = argparse.ArgumentParser(description='Pre-process the dataset')
+    parser.add_argument('--main_folder', type=str, help='Path to the main folder containing the dataset')
+    parser.add_argument('--output_folder', type=str, help='Output folder to store processed data')
 
     args = parser.parse_args()
-    
-    preprocess_data(args.source_dir, args.target_dir)
+
+    preprocess_dataset(args.main_folder, args.output_folder)

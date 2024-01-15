@@ -74,6 +74,9 @@ class Synapse_dataset(Dataset):
             filepath = self.data_dir + "/{}.npy.h5".format(vol_name)
             data = h5py.File(filepath)
             image, label = data['image'][:], data['label'][:]
+            image = image.astype(np.float32)  # You can adjust the type based on your needs
+            label = label.astype(np.float32)  # You can adjust the type based on your needs
+
 
         # Input dim should be consistent
         # Since the channel dimension of nature image is 3, that of medical image should also be 3

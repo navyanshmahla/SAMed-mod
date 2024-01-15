@@ -19,6 +19,11 @@ from torchvision import transforms
 from icecream import ic
 
 
+def get_tensor_unique_values(input_tensor):
+    input_tensor_cpu = input_tensor.cpu() if input_tensor.is_cuda else input_tensor
+    unique_values = torch.unique(input_tensor_cpu)
+    return unique_values.numpy()
+
 def calc_loss(outputs, low_res_label_batch, ce_loss, dice_loss, dice_weight:float=0.8):
     low_res_logits = outputs['low_res_logits']
     loss_ce = ce_loss(low_res_logits, low_res_label_batch[:].long())
@@ -68,14 +73,35 @@ def trainer_synapse(args, model, snapshot_path, multimask_output, low_res):
     logging.info("{} iterations per epoch. {} max iterations ".format(len(trainloader), max_iterations))
     best_performance = 0.0
     iterator = tqdm(range(max_epoch), ncols=70)
+
+    # for i_batch, sampled_batch in enumerate(trainloader):
+    #     image_batch, label_batch = sampled_batch['image'], sampled_batch['label']  # [b, c, h, w], [b, h, w]
+    #     low_res_label_batch = sampled_batch['low_res_label']
+
+    #     print(f"Batch {i_batch + 1}:")
+    #     print(f"Unique values in low_res_label_batch: {get_tensor_unique_values(low_res_label_batch)}")
+
     for epoch_num in iterator:
         for i_batch, sampled_batch in enumerate(trainloader):
             image_batch, label_batch = sampled_batch['image'], sampled_batch['label']  # [b, c, h, w], [b, h, w]
+            print(f"label batch: {len(label_batch)} and image batch: {len(image_batch)}")
+            print(f"Unique values: {get_tensor_unique_values(sampled_batch['low_res_label'])}")
             low_res_label_batch = sampled_batch['low_res_label']
+            # print("Printing image.......")
+            # #print(sampled_batch['label'][15])
+            # print(f"For labels:::::::----")
+            # print(get_tensor_unique_values(sampled_batch['label'][15]))
+            # keys_list = list(sampled_batch.keys())
+            # print("Keys using keys() method:", keys_list)
+            # print((sampled_batch['case_name'][0]))
+            # print(sampled_batch['image'][0].shape)
+            # #print(sampled_batch['low_res_label'].shape)
             image_batch, label_batch = image_batch.cuda(), label_batch.cuda()
             low_res_label_batch = low_res_label_batch.cuda()
             assert image_batch.max() <= 3, f'image_batch max: {image_batch.max()}'
             outputs = model(image_batch, multimask_output, args.img_size)
+            # print(f"Multimask : {multimask_output}")
+            # print(f"Low res label batch: {(low_res_label_batch.shape)}, output: {(outputs['low_res_logits'][0]).shape}")
             loss, loss_ce, loss_dice = calc_loss(outputs, low_res_label_batch, ce_loss, dice_loss, args.dice_param)
             optimizer.zero_grad()
             loss.backward()

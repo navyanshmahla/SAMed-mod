@@ -2,7 +2,7 @@
 
 import h5py
 
-file_path = 'BraTS20_Training_369.npy.h5' #accordingly change the file path
+file_path = './test_folder/testset/abdct1k_testset/test_vol_h5/case0001.npy.h5' #accordingly change the file path
 
 with h5py.File(file_path, 'r') as file:
     keys = list(file.keys())

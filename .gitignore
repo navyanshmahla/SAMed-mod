@@ -2,6 +2,9 @@
 run.md
 train_npz_new_224.zip
 brats20-dataset-training-validation.zip
+image.nii
+label.nii
+lol.py
 
 # Exclude directories
 BraTS_output/
@@ -10,4 +13,10 @@ testset/
 trainset/
 __pycache__/
 checkpoints/
+BraTS20_output/
+synapse_output/
+test_output_BraTS20/
+train_npz_new_224/
+test_output_synapse/
+train_synapse/
 BraTS20/

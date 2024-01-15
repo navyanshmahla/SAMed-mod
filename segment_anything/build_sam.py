@@ -84,6 +84,7 @@ def _build_sam(
     prompt_embed_dim = 256
     image_size = image_size
     vit_patch_size = 16
+    print(type(image_size))
     image_embedding_size = image_size // vit_patch_size  # Divide by 16 here
     sam = Sam(
         image_encoder=ImageEncoderViT(
